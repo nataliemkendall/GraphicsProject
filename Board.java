@@ -38,7 +38,7 @@ public class Board extends Frame {
 					g.drawRect(leftStart+(boxWidth*j), topStart+(boxHeight*i), boxWidth, boxHeight);
 					if (j % 2 == 0 && i % 2 != 0 || j % 2 != 0 && i % 2 == 0) {
 						g.setColor(Color.BLACK);
-						g.fillRect(leftStart+1+(boxWidth*j), topStart+1+(boxHeight*i), boxWidth-1, boxHeight-1);
+						g.fillRect(leftStart+(boxWidth*j), topStart+1+(boxHeight*i), boxWidth, boxHeight-1);
 					}
 				}
 			}
