@@ -35,7 +35,7 @@ class CvBoard extends Canvas {
 	int playerTurn = 1;
 	int mouseClicks;
 	Font unselectedFont = new Font("Helvetica", Font.PLAIN, 20);
-	Font selectedFont = new Font("Helvetica", Font.BOLD, 20);
+	Font selectedFont = new Font("Helvetica", Font.BOLD, 22);
 	boolean gameStart;
 
 	CvBoard(){
@@ -331,14 +331,14 @@ class CvBoard extends Canvas {
 	void selectPiece(Graphics g, int i, int j) {
 		g.setColor(Color.BLACK);
 		g.setFont(selectedFont);
-		g.drawString(Character.toString((char)i+65), (left+(2*boxWidth)/3), (top+(boxHeight*i)+((3*boxHeight)/2)));
+		g.drawString(Character.toString((char)i+65), (left+(boxWidth/2)), (top+(boxHeight*i)+((3*boxHeight)/2)));
 		g.drawString(new String(""+j), (left+(boxWidth*j)+((3*boxWidth)/2)), (top+(4*boxHeight)/5));
 
 		g.setFont(unselectedFont);
 		for (int w = 0; w < 8; w++) {
 			if (w == i) {
 				g.setFont(selectedFont);
-				g.drawString(Character.toString((char)i+65), (left+(2*boxWidth/3)), (top+(boxHeight*i)+((3*boxHeight)/2)));
+				g.drawString(Character.toString((char)i+65), (left+(boxWidth/2)), (top+(boxHeight*i)+((3*boxHeight)/2)));
 				g.setFont(unselectedFont);
 			}
 		}
@@ -354,34 +354,22 @@ class CvBoard extends Canvas {
 				if(pieces[i][j] == 1){
 					g.setColor(Color.RED.darker());
 					g.drawOval(leftCircleStart+(boxWidth*j), topCircleStart+(boxHeight*i), circleWidth, circleHeight);
-					g.fillOval(leftCircleStart+(boxWidth*j), topCircleStart+(boxHeight*i), circleWidth, circleHeight);
-					selected = 1;
-					oldX = i;
-					oldY = j;
+					g.fillOval(leftCircleStart+(boxWidth*j), topCircleStart+(boxHeight*i), circleWidth, circleHeight);					
 				}
 				else if(pieces[i][j] == 2){
-					g.setColor(Color.CYAN.darker());
+					g.setColor(Color.BLUE.darker());
 					g.drawOval(leftCircleStart+(boxWidth*j), topCircleStart+(boxHeight*i), circleWidth, circleHeight);
 					g.fillOval(leftCircleStart+(boxWidth*j), topCircleStart+(boxHeight*i), circleWidth, circleHeight);
-					selected = 2;
-					oldX = i;
-					oldY = j;
 				}
 				else if(pieces[i][j] == 3){
-					g.setColor(Color.ORANGE.darker());
+					g.setColor(Color.RED.darker());
 					g.drawOval(leftCircleStart+(boxWidth*j), topCircleStart+(boxHeight*i), circleWidth, circleHeight);
 					g.fillOval(leftCircleStart+(boxWidth*j), topCircleStart+(boxHeight*i), circleWidth, circleHeight);
-					selected = 2;
-					oldX = i;
-					oldY = j;
 				}
 				else if(pieces[i][j] == 4){
 					g.setColor(Color.BLUE.darker());
 					g.drawOval(leftCircleStart+(boxWidth*j), topCircleStart+(boxHeight*i), circleWidth, circleHeight);
 					g.fillOval(leftCircleStart+(boxWidth*j), topCircleStart+(boxHeight*i), circleWidth, circleHeight);
-					selected = 2;
-					oldX = i;
-					oldY = j;
 				}
 				else{
 					selected = 0;
@@ -411,8 +399,27 @@ class CvBoard extends Canvas {
 			System.out.println("Player 1 Turn");
 			int js = (xP - leftStart)/boxWidth;
 			int is = (yP - topStart)/boxHeight;
-			System.out.println("Coordinates " + js + " " + is);
-
+			char js1 = 'A';
+			for(int i = 0; i < 8; i++){
+				if(js == i && i == 1)
+					js1 = 'A';
+				else if(js == i && i ==2)
+					js1 = 'B';
+				else if(js == i && i ==3)
+					js1 = 'C';
+				else if(js == i && i ==4)
+					js1 = 'D';
+				else if(js == i && i ==5)
+					js1 = 'E';
+				else if(js == i && i ==6)
+					js1 = 'F';
+				else if(js == i && i ==7)
+					js1 = 'G';
+				else if(js == i && i ==8)
+					js1 = 'H';
+			}
+			System.out.println("Coordinates " + js1 + " " + is);
+			selectPiece(g, is, js);
 			if(selectedQ && checkGrid(is,js) && legalMoves[is][js] == true){
 				System.out.println("Activated");
 				if(blackTile(is, js)){
@@ -426,6 +433,7 @@ class CvBoard extends Canvas {
 			} 
 			else if(checkGrid(is,js) && (pieces[is][js] == 1 || pieces[is][js] == 3)) {
 				System.out.println("Piece Selected");
+				selectPiece(g, is, js);
 				resetMoves();
 				addLegalMoves(pieces[is][js],is,js);
 				drawPieces(g);
@@ -444,8 +452,27 @@ class CvBoard extends Canvas {
 			System.out.println("Player 2 Turn");
 			int js = (xP - leftStart)/boxWidth;
 			int is = (yP - topStart)/boxHeight;
-			System.out.println("Coordinates " + js + " " + is);
-
+			char js1 = 'A';
+			for(int i = 0; i < 8; i++){
+				if(js == i && i == 1)
+					js1 = 'A';
+				else if(js == i && i ==2)
+					js1 = 'B';
+				else if(js == i && i ==3)
+					js1 = 'C';
+				else if(js == i && i ==4)
+					js1 = 'D';
+				else if(js == i && i ==5)
+					js1 = 'E';
+				else if(js == i && i ==6)
+					js1 = 'F';
+				else if(js == i && i ==7)
+					js1 = 'G';
+				else if(js == i && i ==8)
+					js1 = 'H';
+			}
+			System.out.println("Coordinates " + js1 + " " + is);
+			selectPiece(g, is, js);
 			if(selectedQ && checkGrid(is,js) && legalMoves[is][js] == true){
 				System.out.println("Activated");
 				if(blackTile(is, js)){
@@ -459,6 +486,7 @@ class CvBoard extends Canvas {
 			} 
 			else if(pieces[is][js] == 2 || pieces[is][js] == 4) {
 				System.out.println("Piece Selected");
+				selectPiece(g, is, js);
 				resetMoves();
 				addLegalMoves(pieces[is][js],is,js);
 				drawPieces(g);
