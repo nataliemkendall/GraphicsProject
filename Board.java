@@ -34,7 +34,8 @@ class CvBoard extends Canvas {
 	static boolean selectedQ = false;
 	int playerTurn = 1;
 	int mouseClicks;
-	Font unselectedFont, selectedFont;
+	Font unselectedFont = new Font("Helvetica", Font.PLAIN, 20);
+	Font selectedFont = new Font("Helvetica", Font.BOLD, 20);
 	boolean gameStart;
 
 	CvBoard(){
@@ -317,11 +318,9 @@ class CvBoard extends Canvas {
 	}
 
 	void drawStartPieces(Graphics g) {	
-		unselectedFont = new Font("Helvetica", Font.PLAIN, 20);
-		selectedFont = new Font("Helvetica", Font.BOLD, 20);
 		g.setFont(unselectedFont);
 		for (int i = 0; i < 8; i++) {
-			g.drawString(Character.toString((char)i+65), (left+(2*boxWidth/3)), (top+(boxHeight*i)+((3*boxHeight)/2)));
+			g.drawString(Character.toString((char)i+65), (left+(boxWidth/2)), (top+(boxHeight*i)+((3*boxHeight)/2)));
 		}
 		for (int j = 0; j < 8; j++) {
 			g.drawString(new String(""+j), (left+(boxWidth*j)+((3*boxWidth)/2)), (top+(4*boxHeight)/5));
