@@ -351,22 +351,22 @@ class CvBoard extends Canvas {
 		}
 		for(int a = 0; a < 8; a++){
 			for(int b = 0; b < 8; b++){
-				if(pieces[i][j] == 1){
+				if(checkGrid(i,j) && pieces[i][j] == 1){
 					g.setColor(Color.RED.darker());
 					g.drawOval(leftCircleStart+(boxWidth*j), topCircleStart+(boxHeight*i), circleWidth, circleHeight);
 					g.fillOval(leftCircleStart+(boxWidth*j), topCircleStart+(boxHeight*i), circleWidth, circleHeight);					
 				}
-				else if(pieces[i][j] == 2){
+				else if(checkGrid(i,j) && pieces[i][j] == 2){
 					g.setColor(Color.BLUE.darker());
 					g.drawOval(leftCircleStart+(boxWidth*j), topCircleStart+(boxHeight*i), circleWidth, circleHeight);
 					g.fillOval(leftCircleStart+(boxWidth*j), topCircleStart+(boxHeight*i), circleWidth, circleHeight);
 				}
-				else if(pieces[i][j] == 3){
+				else if(checkGrid(i,j) && pieces[i][j] == 3){
 					g.setColor(Color.RED.darker());
 					g.drawOval(leftCircleStart+(boxWidth*j), topCircleStart+(boxHeight*i), circleWidth, circleHeight);
 					g.fillOval(leftCircleStart+(boxWidth*j), topCircleStart+(boxHeight*i), circleWidth, circleHeight);
 				}
-				else if(pieces[i][j] == 4){
+				else if(checkGrid(i,j) && pieces[i][j] == 4){
 					g.setColor(Color.BLUE.darker());
 					g.drawOval(leftCircleStart+(boxWidth*j), topCircleStart+(boxHeight*i), circleWidth, circleHeight);
 					g.fillOval(leftCircleStart+(boxWidth*j), topCircleStart+(boxHeight*i), circleWidth, circleHeight);
@@ -401,24 +401,24 @@ class CvBoard extends Canvas {
 			int is = (yP - topStart)/boxHeight;
 			char js1 = 'A';
 			for(int i = 0; i < 8; i++){
-				if(js == i && i == 1)
+				if(is == i && i == 0)
 					js1 = 'A';
-				else if(js == i && i ==2)
+				else if(is == i && i ==1)
 					js1 = 'B';
-				else if(js == i && i ==3)
+				else if(is == i && i ==2)
 					js1 = 'C';
-				else if(js == i && i ==4)
+				else if(is == i && i ==3)
 					js1 = 'D';
-				else if(js == i && i ==5)
+				else if(is == i && i ==4)
 					js1 = 'E';
-				else if(js == i && i ==6)
+				else if(is == i && i ==5)
 					js1 = 'F';
-				else if(js == i && i ==7)
+				else if(is == i && i ==6)
 					js1 = 'G';
-				else if(js == i && i ==8)
+				else if(is == i && i ==7)
 					js1 = 'H';
 			}
-			System.out.println("Coordinates " + js1 + " " + is);
+			System.out.println("Coordinates " + js + " " + js1);
 			selectPiece(g, is, js);
 			if(selectedQ && checkGrid(is,js) && legalMoves[is][js] == true){
 				System.out.println("Activated");
@@ -454,21 +454,21 @@ class CvBoard extends Canvas {
 			int is = (yP - topStart)/boxHeight;
 			char js1 = 'A';
 			for(int i = 0; i < 8; i++){
-				if(js == i && i == 1)
+				if(is == i && i == 0)
 					js1 = 'A';
-				else if(js == i && i ==2)
+				else if(is == i && i ==1)
 					js1 = 'B';
-				else if(js == i && i ==3)
+				else if(is == i && i ==2)
 					js1 = 'C';
-				else if(js == i && i ==4)
+				else if(is == i && i ==3)
 					js1 = 'D';
-				else if(js == i && i ==5)
+				else if(is == i && i ==4)
 					js1 = 'E';
-				else if(js == i && i ==6)
+				else if(is == i && i ==5)
 					js1 = 'F';
-				else if(js == i && i ==7)
+				else if(is == i && i ==6)
 					js1 = 'G';
-				else if(js == i && i ==8)
+				else if(is == i && i ==7)
 					js1 = 'H';
 			}
 			System.out.println("Coordinates " + js1 + " " + is);
