@@ -221,6 +221,33 @@ class CvBoard extends Canvas {
 		leftStart = left + boxWidth; topStart = top + boxHeight;	//Leave some whitespace around the board
 		leftCircleStart = leftStart + boxWidth/6; topCircleStart = topStart + boxHeight/6;
 
+		//Following polygons create the 3D illusion
+		int[] topBottomX = {left+boxWidth, left+boxWidth, left+boxWidth*9, left+boxWidth*9};
+		int[] topYBoard = {top+((boxHeight*32)/35), top+boxHeight, top+boxHeight, top+((boxHeight*32)/35)};
+		int[] leftXBoard = {left+((boxWidth*32)/35), left+boxWidth, left+boxWidth, left+((boxWidth*32)/35)};
+		int[] leftRightY = {top+((boxHeight*32)/35), top+((boxHeight*32)/35), bottom-((boxHeight*32)/35), bottom-((boxHeight*32)/35)};
+		int[] rightXBoard = {right-((boxWidth*32)/35), left+boxWidth*9, left+boxWidth*9, right-((boxWidth*32)/35)};
+		int[] bottomYBoard = {bottom-((boxHeight*32)/35), top+boxHeight*9, top+boxHeight*9, bottom-((boxHeight*32)/35)};
+		int[] rightShadowX = {right-((boxWidth*32)/35), right-((boxWidth*27)/35), right-((boxWidth*27)/35), right-((boxWidth*32)/35)};
+		int[] rightShadowY = {top+((boxHeight*32)/35), top+((boxHeight*43)/35), bottom-((boxHeight*27)/35), bottom-((boxHeight*32)/35)};
+		int[] bottomShadowX = {left+((boxWidth*32)/35), left+((boxWidth*43)/35), right-((boxWidth*27)/35), right-((boxWidth*32)/35)};
+		int[] bottomShadowY = {bottom-((boxHeight*32)/35), bottom-((boxHeight*27)/35), bottom-((boxHeight*27)/35), bottom-((boxHeight*32)/35)};
+				
+		Polygon topBoard = new Polygon(topBottomX, topYBoard, 4);
+		Polygon leftBoard = new Polygon(leftXBoard, leftRightY, 4);
+		Polygon rightBoard = new Polygon(rightXBoard, leftRightY, 4);
+		Polygon bottomBoard = new Polygon(topBottomX, bottomYBoard, 4);
+		Polygon rightShadow = new Polygon(rightShadowX, rightShadowY, 4);
+		Polygon bottomShadow = new Polygon(bottomShadowX, bottomShadowY, 4);
+		g.setColor(new Color(102, 0, 0));
+		g.drawPolygon(topBoard); g.drawPolygon(leftBoard); g.drawPolygon(rightBoard); g.drawPolygon(bottomBoard);
+		g.fillPolygon(topBoard); g.fillPolygon(leftBoard); g.fillPolygon(rightBoard); g.fillPolygon(bottomBoard);
+		g.setColor(Color.BLACK);
+		g.drawPolygon(rightShadow); g.drawPolygon(bottomShadow); 
+		g.setColor(new Color(51, 0, 0));
+		g.fillPolygon(rightShadow); g.fillPolygon(bottomShadow);
+				
+		g.setColor(Color.BLACK);		
 		for (int i = 0; i < numBoxes; i++) {
 			for (int j = 0; j < numBoxes; j++) {
 				g.drawRect(leftStart+(boxWidth*j), topStart+(boxHeight*i), boxWidth, boxHeight);
@@ -236,6 +263,7 @@ class CvBoard extends Canvas {
 	}	
 
 	void drawPieces(Graphics g){
+		Font kingFont = new Font("Dialog", Font.BOLD, 14);
 		for(int i = 0; i < 8; i++){				
 			for(int j = 0; j < 8; j++){
 				if(pieces[i][j] == 1){	
@@ -247,25 +275,32 @@ class CvBoard extends Canvas {
 				else if(pieces[i][j] == 2){
 					g.setColor(Color.BLACK);
 					g.drawOval(leftCircleStart+(boxWidth*j), topCircleStart+(boxHeight*i), circleWidth, circleHeight);
-					g.setColor(Color.CYAN);
+					g.setColor(new Color(0, 128, 255));
 					g.fillOval(leftCircleStart+1+(boxWidth*j), topCircleStart+1+(boxHeight*i), circleWidth-1, circleHeight-1);
 				}
 				else if(pieces[i][j] == 3){	
 					g.setColor(Color.BLACK);
-					g.drawOval(leftCircleStart+(boxWidth*j), topCircleStart+(boxHeight*i), circleWidth, circleHeight);
-					g.setColor(Color.ORANGE);
+					g.drawOval(leftCircleStart+(boxWidth*j), topCircleStart+(boxHeight*i), circleWidth+1, circleHeight+1);
+					g.setColor(new Color(255, 51, 111));
 					g.fillOval(leftCircleStart+1+(boxWidth*j), topCircleStart+1+(boxHeight*i), circleWidth-1, circleHeight-1);
+					g.setColor(Color.BLACK);
+					g.setFont(kingFont);
+					g.drawString("KING", leftCircleStart+(boxWidth*j)+circleWidth/6, topCircleStart+(13*circleHeight)/20+(boxHeight*i));
 				}
 				else if(pieces[i][j] == 4){	
 					g.setColor(Color.BLACK);
 					g.drawOval(leftCircleStart+(boxWidth*j), topCircleStart+(boxHeight*i), circleWidth, circleHeight);
-					g.setColor(Color.BLUE);
+					g.setColor(new Color(111, 51, 255));
 					g.fillOval(leftCircleStart+1+(boxWidth*j), topCircleStart+1+(boxHeight*i), circleWidth-1, circleHeight-1);
+					g.setColor(Color.BLACK);
+					g.setFont(kingFont);
+					g.drawString("KING", leftCircleStart+1+(boxWidth*j)+circleWidth/6, topCircleStart+(13*circleHeight)/20+(boxHeight*i));
 				}
 				else if(legalMoves[i][j] == true){	
 					g.setColor(Color.BLACK);
 					g.drawOval(leftCircleStart+(boxWidth*j), topCircleStart+(boxHeight*i), circleWidth, circleHeight);
-					g.setColor(Color.YELLOW);
+					int alpha = 127;
+					g.setColor(new Color(255, 255, 0, alpha));
 					g.fillOval(leftCircleStart+1+(boxWidth*j), topCircleStart+1+(boxHeight*i), circleWidth-1, circleHeight-1);
 				}
 				else if(pieces[i][j] == 0){
@@ -438,4 +473,3 @@ class CvBoard extends Canvas {
 		}
 	}
 }
-
